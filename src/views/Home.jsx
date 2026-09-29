@@ -1,52 +1,27 @@
 import Header from "../components/Header";
 import CardPizza from "../components/CardPizza";
-
-import napolitana from "../assets/pizza-napolitana.jpg";
-import espanola from "../assets/pizza-espanola.jpg";
-import pepperoni from "../assets/pizza-pepperoni.jpg";
+import { pizzas } from "../pizzas";
 
 const Home = () => {
   return (
-    <main>
+    <>
       <Header />
 
-      <section className="pizza-section">
-        <CardPizza
-          name="Napolitana"
-          price={5950}
-          ingredients={[
-            "mozzarella",
-            "tomates",
-            "jamón",
-            "orégano"
-          ]}
-          img={napolitana}
-        />
-
-        <CardPizza
-          name="Española"
-          price={6950}
-          ingredients={[
-            "mozzarella",
-            "gorgonzola",
-            "parmesano",
-            "provolone"
-          ]}
-          img={espanola}
-        />
-
-        <CardPizza
-          name="Pepperoni"
-          price={6950}
-          ingredients={[
-            "mozzarella",
-            "pepperoni",
-            "orégano"
-          ]}
-          img={pepperoni}
-        />
-      </section>
-    </main>
+      <main className="container my-5">
+        <div className="row g-4">
+          {pizzas.map((pizza) => (
+            <div className="col-12 col-md-6 col-lg-4" key={pizza.id}>
+              <CardPizza
+                name={pizza.name}
+                price={pizza.price}
+                ingredients={pizza.ingredients}
+                img={pizza.img}
+              />
+            </div>
+          ))}
+        </div>
+      </main>
+    </>
   );
 };
 

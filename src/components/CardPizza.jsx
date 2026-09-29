@@ -17,9 +17,9 @@ const CardPizza = ({ name, price, ingredients, img }) => {
         <h4>Ingredientes:</h4>
 
         <ul>
-          {ingredients.map((ingredient, index) => (
-            <li key={index}>
-              🍕 {ingredient}
+          {ingredients.map((ingredient) => (
+            <li key={ingredient}>
+              {ingredient}
             </li>
           ))}
         </ul>

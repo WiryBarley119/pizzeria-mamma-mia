@@ -257,3 +257,87 @@ body {
 .auth-button:hover {
   background-color: #0b5ed7;
 }
+
+.cart-container {
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 30px;
+}
+
+.cart-container h2 {
+  margin-bottom: 25px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-image {
+  width: 100px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.cart-info {
+  flex: 1;
+}
+
+.cart-info h3 {
+  margin: 0 0 8px;
+  text-transform: capitalize;
+}
+
+.cart-info p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.cart-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-controls button {
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  background-color: white;
+}
+
+.cart-controls button:first-child {
+  border: 1px solid #dc3545;
+  color: #dc3545;
+}
+
+.cart-controls button:last-child {
+  border: 1px solid #0d6efd;
+  color: #0d6efd;
+}
+
+.cart-controls span {
+  min-width: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.pay-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #212529;
+  color: white;
+  cursor: pointer;
+}
+
+.pay-button:hover {
+  opacity: 0.85;
+}
