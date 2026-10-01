@@ -1,7 +1,8 @@
-import Cart from "./components/Cart";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import Pizza from "./components/Pizza";
 
+// import Cart from "./components/Cart";
 // import Home from "./views/Home";
 // import Login from "./components/Login";
 // import Register from "./components/Register";
@@ -14,8 +15,9 @@ const App = () => {
       {/* <Home /> */}
       {/* <Login /> */}
       {/* <Register /> */}
+      {/* <Cart /> */}
 
-      <Cart />
+      <Pizza />
 
       <Footer />
     </>
