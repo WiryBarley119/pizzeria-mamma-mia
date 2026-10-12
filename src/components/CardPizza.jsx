@@ -1,7 +1,8 @@
-const CardPizza = ({ name, price, ingredients, img }) => {
+import { Link } from "react-router-dom";
+
+const CardPizza = ({ id, name, price, ingredients, img }) => {
   return (
     <article className="pizza-card">
-
       <img
         src={img}
         alt={`Pizza ${name}`}
@@ -9,7 +10,6 @@ const CardPizza = ({ name, price, ingredients, img }) => {
       />
 
       <div className="pizza-content">
-
         <h2>Pizza {name}</h2>
 
         <hr />
@@ -18,30 +18,24 @@ const CardPizza = ({ name, price, ingredients, img }) => {
 
         <ul>
           {ingredients.map((ingredient) => (
-            <li key={ingredient}>
-              {ingredient}
-            </li>
+            <li key={ingredient}>{ingredient}</li>
           ))}
         </ul>
 
         <hr />
 
-        <h3>
-          Precio: ${price.toLocaleString("es-CL")}
-        </h3>
+        <h3>Precio: ${price.toLocaleString("es-CL")}</h3>
 
         <div className="pizza-buttons">
-          <button className="info-button">
-            Ver más 👀
-          </button>
+          <Link to={`/pizza/${id}`} className="info-button">
+            Ver más
+          </Link>
 
-          <button className="add-button">
-            Añadir 🛒
+          <button type="button" className="add-button">
+            Añadir
           </button>
         </div>
-
       </div>
-
     </article>
   );
 };

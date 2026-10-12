@@ -13,48 +13,48 @@ const Register = () => {
       password.trim() === "" ||
       confirmPassword.trim() === ""
     ) {
-      alert("Todos los campos son obligatorios!");
+      alert("¡Todos los campos son obligatorios!");
       return;
     }
 
     if (password.length < 6) {
-      alert("Password must be at least 6 characters!");
+      alert("¡La contraseña debe tener al menos 6 caracteres!");
       return;
     }
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      alert("¡Las contraseñas no coinciden!");
       return;
     }
 
-    alert("Registration successful!");
+    alert("¡Los campos se validaron correctamente!");
   };
 
   return (
     <main className="auth-section">
       <div className="auth-container">
-        <h1>Register</h1>
+        <h1>Registro</h1>
 
         <form onSubmit={handleSubmit}>
           <div className="auth-group">
-            <label htmlFor="register-email">Email</label>
+            <label htmlFor="register-email">Correo electrónico</label>
 
             <input
               id="register-email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Ingrese su correo electrónico"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div className="auth-group">
-            <label htmlFor="register-password">Password</label>
+            <label htmlFor="register-password">Contraseña</label>
 
             <input
               id="register-password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Ingrese su contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -62,20 +62,20 @@ const Register = () => {
 
           <div className="auth-group">
             <label htmlFor="confirm-password">
-              Confirm Password
+              Confirmar contraseña
             </label>
 
             <input
               id="confirm-password"
               type="password"
-              placeholder="Confirm your password"
+              placeholder="Repita su contraseña"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
 
           <button type="submit" className="auth-button">
-            Register
+            Registrarse
           </button>
         </form>
       </div>

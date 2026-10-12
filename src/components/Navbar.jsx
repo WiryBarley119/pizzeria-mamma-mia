@@ -1,29 +1,34 @@
-const Navbar = ({ setVistaActual }) => {
-  const total = 25000;
+import { Link } from "react-router-dom";
+
+const Navbar = ({ total }) => {
 
   return (
     <nav className="navbar">
-      <div className="navbar-brand">
-        🍕 Pizzería Mamma Mía!
+      <Link to="/" className="navbar-brand">
+        Pizzería Mamma Mía
+      </Link>
+
+      <div className="navbar-links">
+        <Link to="/" className="nav-link">
+          Inicio
+        </Link>
+
+        <Link to="/register" className="nav-link">
+          Registro
+        </Link>
+
+        <Link to="/login" className="nav-link">
+          Iniciar sesión
+        </Link>
+
+        <Link to="/profile" className="nav-link">
+          Perfil
+        </Link>
+
+        <Link to="/cart" className="nav-link cart-link">
+          Total: ${total.toLocaleString("es-CL")}
+        </Link>
       </div>
-
-      <div className="navbar-buttons">
-        <button onClick={() => setVistaActual("home")}>
-          🍕 Home
-        </button>
-
-        <button onClick={() => setVistaActual("login")}>
-          🔐 Login
-        </button>
-
-        <button onClick={() => setVistaActual("register")}>
-          🔐 Register
-        </button>
-      </div>
-
-      <button className="total-button">
-        🛒 Total: ${total.toLocaleString("es-CL")}
-      </button>
     </nav>
   );
 };

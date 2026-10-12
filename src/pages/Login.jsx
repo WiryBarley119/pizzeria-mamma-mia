@@ -8,50 +8,50 @@ const Login = () => {
     e.preventDefault();
 
     if (email.trim() === "" || password.trim() === "") {
-      alert("Todos los campos son obligatorios!");
+      alert("¡Todos los campos son obligatorios!");
       return;
     }
 
     if (password.length < 6) {
-      alert("Password must be at least 6 characters!");
+      alert("¡La contraseña debe tener al menos 6 caracteres!");
       return;
     }
 
-    alert("Authentication successful!");
+    alert("¡Los campos se validaron correctamente!");
   };
 
   return (
     <main className="auth-section">
       <div className="auth-container">
-        <h1>Login</h1>
+        <h1>Iniciar sesión</h1>
 
         <form onSubmit={handleSubmit}>
           <div className="auth-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Correo electrónico</label>
 
             <input
               id="email"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Ingrese su correo electrónico"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div className="auth-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Contraseña</label>
 
             <input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Ingrese su contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
           <button type="submit" className="auth-button">
-            Login
+            Iniciar sesión
           </button>
         </form>
       </div>

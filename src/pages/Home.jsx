@@ -34,10 +34,11 @@ const Home = () => {
       <Header />
 
       <main className="container my-5">
-        <div className="row g-4">
+        <div className="pizzas-grid">
           {pizzas.map((pizza) => (
-            <div className="col-12 col-md-6 col-lg-4" key={pizza.id}>
+            <div className="pizza-grid-item" key={pizza.id}>
               <CardPizza
+                id={pizza.id}
                 name={pizza.name}
                 price={pizza.price}
                 ingredients={pizza.ingredients}
