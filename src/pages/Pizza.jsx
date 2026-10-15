@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-const imagenesPizzas = {
-  p001: "/pizzas/napolitana.jpg",
-  p002: "/pizzas/espanola.jpg",
-  p003: "/pizzas/salame.jpg",
-  p004: "/pizzas/cuatro-estaciones.jpg",
-  p005: "/pizzas/bacon.jpg",
-  p006: "/pizzas/pollo-picante.jpg",
-};
+import CartContext from "../context/CartContext";
+import formatoPrecio from "../utils/formatoPrecio";
 
 const Pizza = () => {
   const { id } = useParams();
+  const { agregarPizza } = useContext(CartContext);
 
   const [pizza, setPizza] = useState(null);
   const [cargando, setCargando] = useState(true);
@@ -20,30 +15,28 @@ const Pizza = () => {
   useEffect(() => {
     const controller = new AbortController();
 
-    const getPizza = async () => {
+    const obtenerPizza = async () => {
       setCargando(true);
       setError("");
       setPizza(null);
 
       try {
-        const response = await fetch(
-          `http://localhost:5000/api/pizzas/${id}`,
+        const respuesta = await fetch(
+          `http://localhost:5000/api/pizzas/${encodeURIComponent(id)}`,
           { signal: controller.signal }
         );
 
-        if (!response.ok) {
-          throw new Error(
-            response.status === 404
-              ? "No encontramos esa pizza."
-              : "No se pudo obtener la pizza."
-          );
+        if (!respuesta.ok) {
+          throw new Error("No se pudo obtener la pizza.");
         }
 
-        const data = await response.json();
-        setPizza(data);
+        const datos = await respuesta.json();
+        setPizza(datos);
       } catch (error) {
         if (error.name !== "AbortError") {
-          setError(error.message);
+          setError(
+            "No se pudo cargar esta pizza. Comprueba que el backend esté funcionando y que la pizza exista."
+          );
         }
       } finally {
         if (!controller.signal.aborted) {
@@ -52,66 +45,70 @@ const Pizza = () => {
       }
     };
 
-    getPizza();
+    obtenerPizza();
 
     return () => controller.abort();
   }, [id]);
 
   if (cargando) {
     return (
-      <section className="pizza-detail-container">
-        <p>Cargando pizza...</p>
-      </section>
+      <div className="pagina-contenedor" role="status">
+        Cargando pizza...
+      </div>
     );
   }
 
-  if (error) {
+  if (error || !pizza) {
     return (
-      <section className="pizza-detail-container">
-        <p role="alert">{error}</p>
-        <Link to="/">Volver al inicio</Link>
+      <section className="pagina-contenedor">
+        <p className="mensaje-error" role="alert">
+          {error || "Pizza no encontrada."}
+        </p>
+
+        <Link to="/" className="boton boton-claro">
+          Volver al inicio
+        </Link>
       </section>
     );
   }
-
-  if (!pizza) return null;
 
   return (
-    <section className="pizza-detail-container">
-      <Link to="/" className="pizza-back-link">
-        ← Volver al inicio
+    <section className="pagina-contenedor">
+      <Link to="/" className="enlace-volver">
+        ← Volver a las pizzas
       </Link>
 
-      <article className="pizza-detail">
+      <article className="pizza-detalle">
         <img
-          src={imagenesPizzas[id] || pizza.img}
+          src={pizza.img}
           alt={`Pizza ${pizza.name}`}
-          className="pizza-detail-image"
         />
 
-        <div className="pizza-detail-content">
-          <h2>Pizza {pizza.name}</h2>
-
-          <hr />
+        <div className="pizza-detalle-contenido">
+          <h1 className="pizza-nombre">{pizza.name}</h1>
 
           <p>{pizza.desc}</p>
 
-          <h3>Ingredientes:</h3>
+          <h2>Ingredientes</h2>
 
-          <ul>
-            {pizza.ingredients.map((ingredient) => (
-              <li key={ingredient}>🍕 {ingredient}</li>
+          <ul className="pizza-ingredientes">
+            {(pizza.ingredients || []).map((ingrediente, indice) => (
+              <li key={`${ingrediente}-${indice}`}>
+                {ingrediente}
+              </li>
             ))}
           </ul>
 
-          <hr />
+          <p className="pizza-precio">
+            {formatoPrecio(pizza.price)}
+          </p>
 
-          <h3>
-            Precio: ${pizza.price.toLocaleString("es-CL")}
-          </h3>
-
-          <button type="button" className="add-button">
-            Añadir 🛒
+          <button
+            type="button"
+            className="boton boton-oscuro"
+            onClick={() => agregarPizza(pizza)}
+          >
+            Añadir al carrito
           </button>
         </div>
       </article>

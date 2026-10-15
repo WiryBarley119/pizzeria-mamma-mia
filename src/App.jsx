@@ -1,74 +1,38 @@
-import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
-import { pizzaCart } from "./pizzas";
+import { Link, Route, Routes } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
-import Home from "./pages/Home";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import Pizza from "./pages/Pizza";
-import Profile from "./pages/Profile";
-import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
 
 const App = () => {
-  const [cart, setCart] = useState(pizzaCart);
-
-  const aumentarCantidad = (id) => {
-    setCart((actual) =>
-      actual.map((pizza) =>
-        pizza.id === id
-          ? { ...pizza, count: pizza.count + 1 }
-          : pizza
-      )
-    );
-  };
-
-  const disminuirCantidad = (id) => {
-    setCart((actual) =>
-      actual
-        .map((pizza) =>
-          pizza.id === id
-            ? { ...pizza, count: pizza.count - 1 }
-            : pizza
-        )
-        .filter((pizza) => pizza.count > 0)
-    );
-  };
-
-  const total = cart.reduce(
-    (acumulador, pizza) => acumulador + pizza.price * pizza.count,
-    0
-  );
-
   return (
     <>
-      <Navbar total={total} />
+      <Navbar />
 
-      <main>
+      <main className="app-main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/pizza/:id" element={<Pizza />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           <Route
-            path="/cart"
+            path="*"
             element={
-              <Cart
-                cart={cart}
-                total={total}
-                aumentarCantidad={aumentarCantidad}
-                disminuirCantidad={disminuirCantidad}
-              />
+              <section className="pagina-contenedor estado-pagina">
+                <h1>Página no encontrada</h1>
+
+                <Link to="/" className="boton boton-oscuro">
+                  Volver al inicio
+                </Link>
+              </section>
             }
           />
-
-          <Route path="/pizza/:id" element={<Pizza />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/404" element={<NotFound />} />
-          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
 

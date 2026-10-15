@@ -1,37 +1,61 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-const CardPizza = ({ id, name, price, ingredients, img }) => {
+import CartContext from "../context/CartContext";
+import formatoPrecio from "../utils/formatoPrecio";
+
+const imagenesLocales = {
+  p001: "/pizzas/napolitana.jpg",
+  p002: "/pizzas/espanola.jpg",
+  p003: "/pizzas/salame.jpg",
+  p004: "/pizzas/cuatro-estaciones.jpg",
+  p005: "/pizzas/bacon.jpg",
+  p006: "/pizzas/pollo-picante.jpg",
+};
+
+const CardPizza = ({ pizza }) => {
+  const { agregarPizza } = useContext(CartContext);
+
   return (
     <article className="pizza-card">
       <img
-        src={img}
-        alt={`Pizza ${name}`}
-        className="pizza-image"
+        className="pizza-card-imagen"
+        src={imagenesLocales[pizza.id] || pizza.img}
+        alt={`Pizza ${pizza.name}`}
       />
 
-      <div className="pizza-content">
-        <h2>Pizza {name}</h2>
+      <div className="pizza-card-contenido">
+        <h2 className="pizza-nombre">{pizza.name}</h2>
 
-        <hr />
+        <p className="pizza-ingredientes-titulo">
+          Ingredientes:
+        </p>
 
-        <h4>Ingredientes:</h4>
-
-        <ul>
-          {ingredients.map((ingredient) => (
-            <li key={ingredient}>{ingredient}</li>
+        <ul className="pizza-ingredientes">
+          {(pizza.ingredients || []).map((ingrediente, indice) => (
+            <li key={`${ingrediente}-${indice}`}>
+              {ingrediente}
+            </li>
           ))}
         </ul>
 
-        <hr />
+        <p className="pizza-precio">
+          {formatoPrecio(pizza.price)}
+        </p>
 
-        <h3>Precio: ${price.toLocaleString("es-CL")}</h3>
-
-        <div className="pizza-buttons">
-          <Link to={`/pizza/${id}`} className="info-button">
+        <div className="pizza-card-acciones">
+          <Link
+            to={`/pizza/${pizza.id}`}
+            className="boton boton-claro"
+          >
             Ver más
           </Link>
 
-          <button type="button" className="add-button">
+          <button
+            type="button"
+            className="boton boton-oscuro"
+            onClick={() => agregarPizza(pizza)}
+          >
             Añadir
           </button>
         </div>

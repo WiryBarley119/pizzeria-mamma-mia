@@ -1,33 +1,36 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { NavLink } from "react-router-dom";
 
-const Navbar = ({ total }) => {
+import CartContext from "../context/CartContext";
+import formatoPrecio from "../utils/formatoPrecio";
+
+const Navbar = () => {
+  const { total } = useContext(CartContext);
 
   return (
-    <nav className="navbar">
-      <Link to="/" className="navbar-brand">
-        Pizzería Mamma Mía
-      </Link>
+    <nav className="mamma-navbar">
+      <div className="mamma-navbar-contenido">
+        <NavLink to="/" className="mamma-marca">
+          Pizzería Mamma Mía
+        </NavLink>
 
-      <div className="navbar-links">
-        <Link to="/" className="nav-link">
-          Inicio
-        </Link>
+        <div className="mamma-nav-enlaces">
+          <NavLink to="/" end className="mamma-nav-enlace">
+            Home
+          </NavLink>
 
-        <Link to="/register" className="nav-link">
-          Registro
-        </Link>
+          <NavLink to="/login" className="mamma-nav-enlace">
+            Iniciar sesión
+          </NavLink>
 
-        <Link to="/login" className="nav-link">
-          Iniciar sesión
-        </Link>
+          <NavLink to="/register" className="mamma-nav-enlace">
+            Registrarse
+          </NavLink>
+        </div>
 
-        <Link to="/profile" className="nav-link">
-          Perfil
-        </Link>
-
-        <Link to="/cart" className="nav-link cart-link">
-          Total: ${total.toLocaleString("es-CL")}
-        </Link>
+        <NavLink to="/cart" className="mamma-carrito">
+          Total: {formatoPrecio(total)}
+        </NavLink>
       </div>
     </nav>
   );
